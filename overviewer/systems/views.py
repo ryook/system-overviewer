@@ -17,13 +17,15 @@ class SystemAPIView(View):
         for s in systems:
             nodes.append({
                 "id": s.id,
-                "label": s.name
+                "label": s.name,
+                "group": s.category
             })
 
             for c in s.connect_to.values():
                 links.append({
-                    "source": s.id, 
-                    "target": c["id"]
+                    "from": s.id,
+                    "to": c["id"],
+                    "arrows": "to"
                 })
             
         data["nodes"] = nodes

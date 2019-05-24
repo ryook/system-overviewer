@@ -3,9 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css">
+    <style>
+        html, body{
+            width: 100%;
+            height: 100%;
+        }
+
+        #network {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
 </head>
+
+
 <body>
-aaaa
+<div id="network"></div>
+<script>
+    var urlParams = new URLSearchParams(window.location.search);
+    layer = urlParams.get("layer");
+    if (layer != 2) {
+        layer =1;
+    };
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "/api/v1/systems?layer=" + layer , false);
+    xhr.send(null);
+
+
+if (xhr.status == 200) {
+
+    res = JSON.parse(xhr.responseText);
+    console.log(res)
+    let container = document.getElementById("network")
+    let data = {
+        nodes: res["nodes"],
+        edges: res["links"]
+    };
+    let options = {
+        nodes: {
+            shape: "dot",
+            size: 10,
+            font: {
+                size: 8,
+                color: "black"
+            }
+        },
+        edges: {
+            width: 1
+        },
+        groups: {
+            system: {
+                color: {
+                    background: "orange"
+                }
+            },
+            dataStore: {
+                color: {
+                    background: "green"
+                }
+            }
+        }
+    };
+
+    let network = new vis.Network(container, data, options)
+
+};
+</script>
+
 
 </body>
 </html>

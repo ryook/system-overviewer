@@ -11,7 +11,7 @@ python manage.py createsuperuser
 login to `/admin/`
 admin login > add system
 
-![input](https://gyazo.com/0b03f865310e6c307f01ee52fcbcf62c)
+<img src=https://gyazo.com/0b03f865310e6c307f01ee52fcbcf62c>
 
 
 # view system overview
